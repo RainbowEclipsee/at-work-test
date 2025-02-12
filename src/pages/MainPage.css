@@ -5,17 +5,56 @@
   background-color: #f4f4f4;
 }
 
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: -8px;
+}
+
+.divider {
+  width: 98%;
+  height: 1px;
+  background-color: #ddd;
+  margin: 30px 0;
+  
+}
+
 .container h2 {
   align-self: flex-start;
   font-size: 24px;
   font-weight: 600;
-  margin-left: 140px;
+  margin-left: 14px;
 }
-
 
 .archive-title {
   margin-top: 20px; 
   font-family: 'Manrope', sans-serif;
   font-weight: 600;
   font-size: 24px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 18px;
+  color: #555;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #22A0BC;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

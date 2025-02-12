@@ -1,25 +1,93 @@
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
+  background: #FDFDFD;
+  max-width: 1440px;
+  height: 56px;
+  padding: 0 16px;
 }
 
-.header-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
+.logo {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
 }
 
-.header-nav a {
+h1 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #333153;
   text-decoration: none;
-  font-size: 16px;
-  color: #007bff;
-  font-weight: 500;
 }
 
-.header-nav a:hover {
-  text-decoration: underline;
+.no-underline {
+  text-decoration: none;
+}
+
+
+h1 span {
+  font-family: Inter;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333153;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  margin-left: 150px;
+
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  margin-right: 150px;
+}
+
+.username {
+  font-size: 1rem; 
+  font-weight: 500;
+  color: #333153;
+  margin-left: 8px;
+
+}
+
+.profile-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.profile-notify {
+  width: 12.24px;
+  margin-right: 20px;
+  height: 13.6px;
+}
+
+.profile-featured {
+  width: 12.24px;
+  margin-right: 8px;
+  height: 13.6px;
+}
+
+
+@media (max-width: 768px) {
+  .header-left,
+  .header-right {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  h1,
+  h1 span,
+  .username {
+    font-size: 1rem; 
+  }
+
+  .logo {
+    width: 20px; 
+    height: 20px;
+  }
 }

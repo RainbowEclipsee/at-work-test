@@ -12,11 +12,21 @@ const MainPage = () => {
     dispatch(fetchUsers())
   }, [dispatch])
 
-  if (loading) return <p>Loading...</p>
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Загрузка...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
-      <h2>Активные</h2>
+      <h2 className="section-title">Активные</h2>
+
+      <div className="divider"></div>
+
       <div className="cards">
         {users
           .filter((user) => !user.archived)
@@ -31,9 +41,12 @@ const MainPage = () => {
           ))}
       </div>
 
-      <h2>Архив</h2>
+      <h2 className="section-title">Архив</h2>
+      
+      <div className="divider"></div>
+
       <div className="cards">
-      {users
+        {users
           .filter(user => user.archived)
           .map(user => (
             <Card

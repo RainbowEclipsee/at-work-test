@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import {photoProfile, btn} from '../assets'
 import './Card.css'
 
 const Card = ({ user, onArchive, onUnarchive, onHide }) => {
@@ -13,19 +14,19 @@ const Card = ({ user, onArchive, onUnarchive, onHide }) => {
   return (
     <div className="card">
       <img
-        src="/photoProfile.png"
+        src={photoProfile}
         alt="Avatar"
         className={`avatar ${user.archived? 'archived' : ''}`}
       />
       <div className="desc">
         <h3 className="user">{user.username}</h3>
-        <p className="userAddress">{user.address.city}</p>
-        <p className="userCompany">{user.company.name}</p>
+        <p className="userAddress">{user.address?.city || "Город не указан"}</p>
+        <p className="userCompany">{user.company?.name || "Компания не указана"}</p>
       </div>
 
       <div className="dropdown">
         <button className="dropdown-toggle" onClick={toggleDropdown}>
-          <img src="/doth.svg" alt="doth" className="doth" />
+          <img src={btn} alt="btn" className="btn" />
         </button>
 
         {isDropdownOpen && (
