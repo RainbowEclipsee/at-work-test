@@ -1,49 +1,21 @@
-.main-page {
-  padding: 20px;
-  background-color: #f7f7f7;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 16px;
-}
-
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 16px;
-}
-
-.cards-container a {
-  text-decoration: none;
-}
-
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #f4f4f4;
 }
 
-.card img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
+.container h2 {
+  align-self: flex-start;
+  font-size: 24px;
+  font-weight: 600;
+  margin-left: 140px;
 }
 
-.card h2 {
-  font-size: 18px;
-  color: #007bff;
-  margin-top: 12px;
-}
 
-.card p {
-  font-size: 14px;
-  color: #555;
+.archive-title {
+  margin-top: 20px; 
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
 }

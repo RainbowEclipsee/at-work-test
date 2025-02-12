@@ -1,32 +1,52 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUsers } from "../redux/usersSlice";
-import Card from "../components/Card";
-import { Link } from "react-router-dom";
-import "./MainPage.css";
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { archiveUser, unarchiveUser, hideUser, fetchUsers } from '../redux/usersSlice'
+import Card from '../components/Card'
+import './MainPage.css'
 
 const MainPage = () => {
-  const dispatch = useDispatch();
-  const users = useSelector(state => state.users);
+  const dispatch = useDispatch()
+  const { users, loading } = useSelector((state) => state.users)
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users?_limit=6")
-      .then(res => res.json())
-      .then(data => dispatch(setUsers(data)));
-  }, [dispatch]);
+    dispatch(fetchUsers())
+  }, [dispatch])
+
+  if (loading) return <p>Loading...</p>
 
   return (
-    <div className="main-page">
-      <h1>Активные</h1>
-      <div className="cards-container">
-        {users.map(user => (
-          <Link to={`/edit/${user.id}`} key={user.id}>
-            <Card name={user.username} location={user.address.city} image="https://via.placeholder.com/150" />
-          </Link>
-        ))}
+    <div className="container">
+      <h2>Активные</h2>
+      <div className="cards">
+        {users
+          .filter((user) => !user.archived)
+          .map((user) => (
+            <Card
+              key={user.id}
+              user={user}
+              onArchive={(id) => dispatch(archiveUser(id))}
+              onUnarchive={(id) => dispatch(unarchiveUser(id))}
+              onHide={(id) => dispatch(hideUser(id))}
+            />
+          ))}
+      </div>
+
+      <h2>Архив</h2>
+      <div className="cards">
+      {users
+          .filter(user => user.archived)
+          .map(user => (
+            <Card
+              key={user.id}
+              user={user}
+              onArchive={id => dispatch(archiveUser(id))}
+              onUnarchive={id => dispatch(unarchiveUser(id))}
+              onHide={id => dispatch(hideUser(id))}
+            />
+          ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MainPage;
+export default MainPage

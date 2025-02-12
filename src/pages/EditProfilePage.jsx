@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import UserForm from "../components/UserForm";
-import "./EditProfilePage.css";
+// import "./EditProfilePage.css"; // - Проблемное место влияющее на кнопки в Main
 
 const EditProfilePage = () => {
   const { userId } = useParams();
