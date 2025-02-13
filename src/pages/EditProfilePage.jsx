@@ -87,6 +87,7 @@ const EditProfilePage = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
+              placeholder={'Имя'}
               required
             />
             <label>Имя пользователя</label>
@@ -94,6 +95,7 @@ const EditProfilePage = () => {
               name="username"
               value={formData.username}
               onChange={handleChange}
+              placeholder={'Имя пользователя'}
               required
             />
             <label>Почта</label>
@@ -101,6 +103,7 @@ const EditProfilePage = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              placeholder={'Почта'}
               required
             />
             <label>Город</label>
@@ -108,6 +111,7 @@ const EditProfilePage = () => {
               name="city"
               value={formData.city}
               onChange={handleChange}
+              placeholder={'Город'}
               required
             />
             <label>Телефон</label>
@@ -115,6 +119,7 @@ const EditProfilePage = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
+              placeholder={'Телефон'}
               required
             />
             <label>Название компании</label>
@@ -122,6 +127,7 @@ const EditProfilePage = () => {
               name="company"
               value={formData.company}
               onChange={handleChange}
+              placeholder={'Название компании'}
               required
             />
             <button type="submit" className="editButton">

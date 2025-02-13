@@ -1,8 +1,13 @@
-.container {
+ .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f4f4f4;
+  width: 100vw;
+  min-height: calc(100vh);
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .section-title {
@@ -23,7 +28,7 @@
   align-self: flex-start;
   font-size: 24px;
   font-weight: 600;
-  margin-left: 14px;
+  margin-left: 10%;
 }
 
 .archive-title {

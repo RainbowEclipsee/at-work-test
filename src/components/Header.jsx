@@ -2,19 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import './Header.css'
-import { mainPageLogo, featured, mi_notification, photoProfile } from "../assets";
+import { featured, mi_notification, photoProfile, logo } from "../assets";
 
 const Header = () => {
   return (
     <header className="header">
-      <Link to={`/`} className="no-underline">
+      
         <div className="header-left">
-          <img src={mainPageLogo} alt="Logo" className="logo" />
-          <h1>
-            at-<span>work</span>
-          </h1>
+          <img src={logo} alt="Logo" className="logo"/>
         </div>
-      </Link>
 
       <div className="header-right">
         <Link>

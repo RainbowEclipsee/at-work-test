@@ -9,7 +9,7 @@
 }
 
 .logo {
-  width: 24px;
+  width: 124px;
   height: 24px;
   margin-right: 8px;
 }
@@ -20,11 +20,6 @@ h1 {
   color: #333153;
   text-decoration: none;
 }
-
-.no-underline {
-  text-decoration: none;
-}
-
 
 h1 span {
   font-family: Inter;
@@ -87,7 +82,7 @@ h1 span {
   }
 
   .logo {
-    width: 20px; 
-    height: 20px;
+    width: 82px; 
+    height: 16px;
   }
 }
