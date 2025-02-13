@@ -3,6 +3,7 @@
 2. npm install - устанавливаем все проектные зависимости.
 3. npm start - запускаем.
 
+4. https://rainboweclipsee.github.io/at-work-test/ - для просмотра готовой сборки 
 # Задание
 
 Тестовое задание для Frontend.
