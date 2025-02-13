@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { photoProfile, btn } from '../assets'
+import { photoProfile, btn } from '../../assets'
 import './Card.css'
 
 const Card = ({ user, onArchive, onUnarchive, onHide, openDropdownId, setOpenDropdownId }) => {

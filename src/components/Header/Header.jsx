@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import './Header.css'
-import { featured, mi_notification, photoProfile, logo } from "../assets";
+import { featured, mi_notification, photoProfile, logo } from "../../assets";
 
 const Header = () => {
   return (

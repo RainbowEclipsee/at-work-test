@@ -86,13 +86,13 @@
 
 
 .dropdown-toggle:hover img {
-  content: url('../assets/btnHover.svg'); 
+  content: url('../../assets/btnHover.svg'); 
   transform: scale(1.1); 
 }
 
 
 .dropdown-toggle:active img {
-  content: url('../assets/btnHover.svg'); 
+  content: url('../../assets/btnHover.svg'); 
 }
 
 .dropdown-menu {

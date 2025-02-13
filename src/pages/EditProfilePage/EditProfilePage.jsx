@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate } from 'react-router-dom'
-import { fetchUserById, updateUser } from '../redux/usersSlice'
+import { fetchUserById, updateUser } from '../../redux/usersSlice'
 
-import { profileEditPage, Icon, arrowLeft } from '../assets'
+import { profileEditPage, Icon, arrowLeft } from '../../assets'
 import './EditProfilePage.css'
 
 const EditProfilePage = () => {

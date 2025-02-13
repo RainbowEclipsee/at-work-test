@@ -1,9 +1,9 @@
 import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import MainPage from './pages/MainPage'
-import EditProfilePage from './pages/EditProfilePage'
-import Header from './components/Header'
-import './App.css'
+import MainPage from './pages/MainPage/MainPage'
+import EditProfilePage from './pages/EditProfilePage/EditProfilePage'
+import Header from './components/Header/Header'
+import './style/App.css'
 
 const App = () => {
   return (

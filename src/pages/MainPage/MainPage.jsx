@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { archiveUser, unarchiveUser, hideUser, fetchUsers } from '../redux/usersSlice'
-import Card from '../components/Card'
+import { archiveUser, unarchiveUser, hideUser, fetchUsers } from '../../redux/usersSlice'
+import Card from '../../components/Card/Card'
 import './MainPage.css'
 
 const MainPage = () => {
