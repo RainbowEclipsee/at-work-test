@@ -60,7 +60,3 @@ const Card = ({ user, onArchive, onUnarchive, onHide, openDropdownId, setOpenDro
 }
 
 export default Card
-
-
-
-

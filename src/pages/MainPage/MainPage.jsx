@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { archiveUser, unarchiveUser, hideUser, fetchUsers } from '../../redux/usersSlice'
+import {
+  archiveUser,
+  unarchiveUser,
+  hideUser,
+  fetchUsers,
+} from '../../redux/usersSlice'
 import Card from '../../components/Card/Card'
 import './MainPage.css'
 
@@ -9,7 +14,7 @@ const MainPage = () => {
   const { users, loading } = useSelector((state) => state.users)
 
   // Должны хранить ID карточки, у которой открыто меню (cвязано с компонентом Card)
-  const [openDropdownId, setOpenDropdownId] = useState(null);
+  const [openDropdownId, setOpenDropdownId] = useState(null)
 
   useEffect(() => {
     dispatch(fetchUsers())
@@ -21,7 +26,7 @@ const MainPage = () => {
         <div className="spinner"></div>
         <p>Загрузка...</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -50,14 +55,14 @@ const MainPage = () => {
 
       <div className="cards">
         {users
-          .filter(user => user.archived)
-          .map(user => (
+          .filter((user) => user.archived)
+          .map((user) => (
             <Card
               key={user.id}
               user={user}
-              onArchive={id => dispatch(archiveUser(id))}
-              onUnarchive={id => dispatch(unarchiveUser(id))}
-              onHide={id => dispatch(hideUser(id))}
+              onArchive={(id) => dispatch(archiveUser(id))}
+              onUnarchive={(id) => dispatch(unarchiveUser(id))}
+              onHide={(id) => dispatch(hideUser(id))}
               openDropdownId={openDropdownId}
               setOpenDropdownId={setOpenDropdownId}
             />
