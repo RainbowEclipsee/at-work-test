@@ -1,39 +1,53 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import type { PayloadAction } from '@reduxjs/toolkit'
+import type { User } from "../types/user";
 
-export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
+
+export const fetchUsers = createAsyncThunk<User[]>("users/fetchUsers", async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/users");
-  const data = await response.json();
+  const data = (await response.json()) as User[]
   return data.slice(0, 6); 
 });
 
-export const fetchUserById = createAsyncThunk("users/fetchUserById", async (id) => {
+export const fetchUserById = createAsyncThunk<User, number>("users/fetchUserById", async (id) => {
   const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
-  const data = await response.json();
+  const data = (await response.json()) as User
   return data;
 });
 
-export const updateUser = createAsyncThunk("users/updateUser", async (updatedUser) => {
+export const updateUser = createAsyncThunk<User, User>("users/updateUser", async (updatedUser) => {
   return updatedUser; 
 });
 
+export interface UsersState {
+  users: User[]
+  currentUser: User | null
+  loading: boolean
+  error: string | null
+}
+
+const initialState: UsersState = {
+  users: [],
+  currentUser: null,
+  loading: false,
+  error: null
+}
+
 const usersSlice = createSlice({
   name: "users",
-  initialState: {
-    users: [],
-    currentUser: null,
-    loading: false,
-    error: null
-  },
+  initialState,
   reducers: {
-    archiveUser: (state, action) => {
+    archiveUser: (state, action: PayloadAction<number>) => {
       const user = state.users.find((user) => user.id === action.payload);
-      user.archived = true;
+      if(user)
+        user.archived = true;
     },
-    unarchiveUser: (state, action) => {   
-      const user = state.users.find((user) => user.id === action.payload); // Поправить разАрхивирование с главной страницы
-      user.archived = false;
+    unarchiveUser: (state, action: PayloadAction<number>) => {   
+      const user = state.users.find((user) => user.id === action.payload); 
+      if(user)
+        user.archived = false;
     },
-    hideUser: (state, action) => {
+    hideUser: (state, action: PayloadAction<number>) => {
       state.users = state.users.filter((user) => user.id !== action.payload);
     },
   },
