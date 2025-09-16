@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  archiveUser,
-  unarchiveUser,
-  hideUser,
-  fetchUsers,
-} from '../../redux/usersSlice'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
+import { archiveUser, unarchiveUser, hideUser, fetchUsers } from '../../redux/usersSlice'
+import type { User } from '../../types/user'
 import Card from '../../components/Card/Card'
+
 import './MainPage.css'
 
-const MainPage = () => {
-  const dispatch = useDispatch()
-  const { users, loading } = useSelector((state) => state.users)
 
-  // Должны хранить ID карточки, у которой открыто меню (cвязано с компонентом Card)
-  const [openDropdownId, setOpenDropdownId] = useState(null)
+const MainPage: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const { users, loading } = useAppSelector((state) => state.users)
+
+  const [openDropdownId, setOpenDropdownId] = useState<number | null>(null)
 
   useEffect(() => {
     dispatch(fetchUsers())
@@ -29,6 +26,10 @@ const MainPage = () => {
     )
   }
 
+  const handleArchive = (id: number) => dispatch(archiveUser(id))
+  const handleunUarchive = (id: number) => dispatch(unarchiveUser(id))
+  const handleHide = (id: number) => dispatch(hideUser(id))
+
   return (
     <div className="container">
       <h2 className="section-title">Активные</h2>
@@ -36,14 +37,14 @@ const MainPage = () => {
 
       <div className="cards">
         {users
-          .filter((user) => !user.archived)
-          .map((user) => (
+          .filter((user: User) => !user.archived)
+          .map((user: User) => (
             <Card
               key={user.id}
               user={user}
-              onArchive={(id) => dispatch(archiveUser(id))}
-              onUnarchive={(id) => dispatch(unarchiveUser(id))}
-              onHide={(id) => dispatch(hideUser(id))}
+              onArchive={handleArchive}
+              onUnarchive={handleunUarchive}
+              onHide={handleHide}
               openDropdownId={openDropdownId}
               setOpenDropdownId={setOpenDropdownId}
             />
@@ -55,14 +56,14 @@ const MainPage = () => {
 
       <div className="cards">
         {users
-          .filter((user) => user.archived)
-          .map((user) => (
+          .filter((user: User) => user.archived)
+          .map((user: User) => (
             <Card
               key={user.id}
               user={user}
-              onArchive={(id) => dispatch(archiveUser(id))}
-              onUnarchive={(id) => dispatch(unarchiveUser(id))}
-              onHide={(id) => dispatch(hideUser(id))}
+              onArchive={handleArchive}
+              onUnarchive={handleunUarchive}
+              onHide={handleHide}
               openDropdownId={openDropdownId}
               setOpenDropdownId={setOpenDropdownId}
             />

@@ -1,17 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState, useRef } from 'react'
+import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { useParams, useNavigate } from 'react-router-dom'
 import { fetchUserById, updateUser } from '../../redux/usersSlice'
 
-import { profileEditPage, Icon, arrowLeft } from '../../assets'
-import './EditProfilePage.css'
+import { profileEditPage, Icon, arrowLeft } from '../../assets' 
+import './EditProfilePage.css' 
 
-const EditProfilePage = () => {
-  const { id } = useParams()
-  const dispatch = useDispatch()
+type Params = {
+  id?: string 
+}
+
+type FormState = {
+  name: string
+  username: string
+  email: string
+  city: string
+  phone: string
+  company: string
+}
+
+const EditProfilePage: React.FC = () => {
+  const { id } = useParams<Params>()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { currentUser } = useSelector((state) => state.users)
-  const [formData, setFormData] = useState({
+  const { currentUser } = useAppSelector((state) => state.users)
+
+  const [formData, setFormData] = useState<FormState>({
     name: '',
     username: '',
     email: '',
@@ -21,38 +35,51 @@ const EditProfilePage = () => {
   })
 
   const [isModalVisible, setModalVisible] = useState(false)
+  const timeoutRef = useRef<number | null>(null)
+
+  const userId = id != null ? Number(id) : null
 
   useEffect(() => {
-    dispatch(fetchUserById(id))
-  }, [dispatch, id])
+    if (userId !== null && !Number.isNaN(userId)) {
+      dispatch(fetchUserById(userId))
+    }
+  }, [dispatch, userId])
 
   useEffect(() => {
     if (currentUser) {
       setFormData({
-        name: currentUser?.name,
-        username: currentUser?.username,
-        email: currentUser?.email,
-        city: currentUser?.address.city,
-        phone: currentUser?.phone,
-        company: currentUser?.company.name,
+        name: currentUser.name ?? '',
+        username: currentUser.username ?? '',
+        email: currentUser.email ?? '',
+        city: currentUser.address?.city ?? '',
+        phone: currentUser.phone ?? '',
+        company: currentUser.company?.name ?? '',
       })
     }
   }, [currentUser])
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(updateUser({ id, ...formData }))
-
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    dispatch(updateUser({ id, ...formData } as any))
     setModalVisible(true)
 
-    setTimeout(() => {
+    timeoutRef.current = window.setTimeout(() => {
       setModalVisible(false)
       navigate('/')
     }, 4000)
@@ -60,9 +87,12 @@ const EditProfilePage = () => {
 
   return (
     <div>
-
       <div className="edit-container">
-        <button className="back-button" onClick={() => navigate(-1)}>
+        <button
+          type="button"
+          className="back-button"
+          onClick={() => navigate(-1)}
+        >
           <img src={arrowLeft} alt="Назад" className="back-icon" />
           Назад
         </button>
@@ -87,49 +117,55 @@ const EditProfilePage = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder={'Имя'}
+              placeholder="Имя"
               required
             />
+
             <label>Имя пользователя</label>
             <input
               name="username"
               value={formData.username}
               onChange={handleChange}
-              placeholder={'Имя пользователя'}
+              placeholder="Имя пользователя"
               required
             />
+
             <label>Почта</label>
             <input
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder={'Почта'}
+              placeholder="Почта"
               required
             />
+
             <label>Город</label>
             <input
               name="city"
               value={formData.city}
               onChange={handleChange}
-              placeholder={'Город'}
+              placeholder="Город"
               required
             />
+
             <label>Телефон</label>
             <input
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              placeholder={'Телефон'}
+              placeholder="Телефон"
               required
             />
+
             <label>Название компании</label>
             <input
               name="company"
               value={formData.company}
               onChange={handleChange}
-              placeholder={'Название компании'}
+              placeholder="Название компании"
               required
             />
+
             <button type="submit" className="editButton">
               Сохранить
             </button>

@@ -1,26 +1,58 @@
-import React from 'react'
+// src/components/Card/Card.tsx
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { photoProfile, btn } from '../../assets'
 import './Card.css'
 
-const Card = ({ user, onArchive, onUnarchive, onHide, openDropdownId, setOpenDropdownId }) => {
-  
-  const toggleDropdown = () => {
-    setOpenDropdownId(openDropdownId === user.id ? null : user.id);
-  };
+import type { User } from '../../types/user'
 
-  const handleArchive = (id) => {
-    onArchive(id);          // Перемещаем в архив
-    setOpenDropdownId(null); // Закрываем меню
-  };
+interface CardProprs {
+  user: User
+  onArchive: (id: number) => void
+  onUnarchive: (id: number) => void
+  onHide: (id: number) => void
+  openDropdownId: number | null
+  setOpenDropdownId: React.Dispatch<React.SetStateAction<number | null>>
+}
 
-  const handleUnarchive = (id) => {
-    onUnarchive(id);        // Активируем карточку
-    setOpenDropdownId(null); // Закрываем меню
-  };
+const Card: React.FC<CardProprs> = ({ user, onArchive, onUnarchive, onHide, openDropdownId, setOpenDropdownId }) => {
+  const cardRef = useRef<HTMLDivElement | null>(null)
+
+  const toggleDropdown = (e?: React.MouseEvent) => {
+    e?.stopPropagation()
+    setOpenDropdownId(openDropdownId === user.id ? null : user.id)
+  }
+
+  const handleArchive = (id: number) => {
+    onArchive(id)
+    setOpenDropdownId(null)
+  }
+
+  const handleUnarchive = (id: number) => {
+    onUnarchive(id)
+    setOpenDropdownId(null)
+  }
+
+  const handleHide = (id: number) => {
+    onHide(id)
+    setOpenDropdownId(null)
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (cardRef.current && !cardRef.current.contains(event.target as Node)) {
+        setOpenDropdownId(null)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [setOpenDropdownId])
 
   return (
-    <div className="card">
+    <div className="card" ref={cardRef}>
       <img
         src={photoProfile}
         alt="Avatar"
@@ -33,23 +65,21 @@ const Card = ({ user, onArchive, onUnarchive, onHide, openDropdownId, setOpenDro
       </div>
 
       <div className="dropdown">
-        <button className="dropdown-toggle" onClick={toggleDropdown}>
+        <button type="button" className="dropdown-toggle" onClick={toggleDropdown}>
           <img src={btn} alt="btn" className="btn" />
         </button>
 
         {openDropdownId === user.id && (
           <div className="dropdown-menu">
             {user.archived ? (
-              // Если пользователь в архиве, показываем только "Активировать"
-              <button onClick={() => handleUnarchive(user.id)}>Активировать</button>
+              <button type="button" onClick={() => handleUnarchive(user.id)}>Активировать</button>
             ) : (
-              // Если пользователь !в архиве, показываем все кнопки
               <>
                 <button>
-                  <Link to={`/edit/${user.id}`}>Редактировать</Link>
+                  <Link to={`/edit/${user.id}`} className="dropdown-link">Редактировать</Link>
                 </button>
-                <button onClick={() => handleArchive(user.id)}>Архивировать</button>
-                <button onClick={() => onHide(user.id)}>Скрыть</button>
+                <button type="button" onClick={() => handleArchive(user.id)}>Архивировать</button>
+                <button type="button" onClick={() => handleHide(user.id)}>Скрыть</button>
               </>
             )}
           </div>

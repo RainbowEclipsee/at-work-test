@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './Header.css'
 import { featured, mi_notification, photoProfile, logo } from "../../assets";
 
-const Header = () => {
+const Header:React.FC = () => {
   return (
     <header className="header">
       
